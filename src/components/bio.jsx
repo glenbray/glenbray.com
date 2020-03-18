@@ -40,9 +40,7 @@ const Bio = () => {
         className="mr-4 mb-0 rounded-full"
         fixed={data.avatar.childImageSharp.fixed}
         alt={author}
-        style={{
-          minWidth: 100,
-        }}
+        style={{ minWidth: '100' }}
       />
 
       <div>

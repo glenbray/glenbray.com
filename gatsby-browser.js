@@ -14,4 +14,4 @@ import "tailwindcss/utilities.css"
 // elements created by the Markdown parser
 import "./src/markdown.css"
 
-require("prismjs/themes/prism.css")
+import "prismjs/themes/prism.css"
