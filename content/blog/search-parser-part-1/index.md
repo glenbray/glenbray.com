@@ -23,7 +23,7 @@ I've split building this gem into two articles. The features we will work on are
 
 Before we start writing any code for a feature, we will start with tests. So we'll build this test first. Let's get started by creating the gem.
 
-```sh
+```bash
 bundle gem elastic_parser
 ```
 
