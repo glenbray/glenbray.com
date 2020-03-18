@@ -1,5 +1,6 @@
 import Typography from "typography"
 import Wordpress2016 from "typography-theme-wordpress-2016"
+// import grandViewTheme from "typography-theme-grand-view"
 
 Wordpress2016.overrideThemeStyles = () => {
   return {

@@ -4,7 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+// import { scale } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -18,12 +18,13 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <article>
+        <Bio />
+        <article className="bg-white px-6 py-4 rounded shadow mb-8">
           <header>
-            <h1 className="text-5xl font-black mt-8 mb-0">
+            <h1 className="text-4xl font-black mt-8 mb-0">
               {post.frontmatter.title}
             </h1>
-            <p className="text-sm leading-loose mb-8 ">
+            <p className="text-lg leading-loose mb-8 text-gray-600">
               {post.frontmatter.date}
             </p>
           </header>
@@ -37,40 +38,14 @@ class BlogPostTemplate extends React.Component {
           </footer>
         </article>
 
-        <nav>
-          <ul
-            className="flex flex-wrap justify-between mb-8"
-            // style={{
-            //   display: `flex`,
-            //   flexWrap: `wrap`,
-            //   justifyContent: `space-between`,
-            //   listStyle: `none`,
-            //   padding: 0,
-            // }}
+        <nav className="mb-8">
+          <Link
+            className="text-2xl text-blue-600"
+            to="/"
+            rel="back"
           >
-            <li>
-              {previous && (
-                <Link
-                  className="text-blue-600"
-                  to={previous.fields.slug}
-                  rel="prev"
-                >
-                  ← {previous.frontmatter.title}
-                </Link>
-              )}
-            </li>
-            <li>
-              {next && (
-                <Link
-                  className="text-blue-600"
-                  to={next.fields.slug}
-                  rel="next"
-                >
-                  {next.frontmatter.title} →
-                </Link>
-              )}
-            </li>
-          </ul>
+            ← Back
+          </Link>
         </nav>
       </Layout>
     )
@@ -92,7 +67,7 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date(formatString: "DD MMMM, YYYY")
         description
       }
     }
