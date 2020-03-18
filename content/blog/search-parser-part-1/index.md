@@ -1,7 +1,7 @@
 ---
 title: Search Parser Part 1
 date: "2020-03-17T08:29:00"
-description: This is a custom description for SEO and Open Graph purposes, rather than the default generated excerpt. Simply add a description field to the frontmatter.
+description: ""
 ---
 
 Out of the box, Elasticsearch provides its own [query parser](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html). But what if you wanted something similar to [googles search functionality](https://ahrefs.com/blog/google-advanced-search-operators/). In our case, we don't need all the features that come with Elasticsearch and we'd prefer to restrict functionality. So our plan is to build our own gem that can take a search expression then transform that and return an Elasticsearch query. 

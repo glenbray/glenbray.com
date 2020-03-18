@@ -1,6 +1,7 @@
 ---
 title: Search Parser Part 2
 date: "2020-03-17T08:30:00"
+description: ""
 ---
 
 The code for this article can be found [here](https://github.com/glenbray/elastic_parser).
@@ -227,7 +228,6 @@ end
 ```
 
 
-
 We'll also update to the parser specs for the not operator.
 
 ```ruby
@@ -301,9 +301,7 @@ module ElasticParser
 end
 ```
 
-
-Let's run our specs again
-
+Let's run our specs again.
 
 ![rspec_6](https://dev-to-uploads.s3.amazonaws.com/i/euaf0zdwrby80iym2o2y.png)
 
