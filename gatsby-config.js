@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `glenbray.com`,
     author: `Glen Bray`,
-    description: `i`,
+    description: ``,
     siteUrl: `https://glenbray.com`,
     social: {
       github: `glenbray`,
@@ -61,7 +61,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Glen Bray Blog`,
+        name: `glenbray`,
         short_name: `GatsbyJS`,
         start_url: `/`,
         background_color: `#ffffff`,

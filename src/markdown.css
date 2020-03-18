@@ -7,11 +7,11 @@
 }
 
 .markdown > h3 {
-  @apply text-2xl font-black mt-12 mb-0;
+  @apply text-2xl font-black mt-12 mb-4;
 }
 
 .markdown > h4 {
-  @apply font-black mt-8 mb-0 normal-case tracking-wider;
+  @apply font-black mt-8 mb-4 normal-case tracking-wider;
 
 }
 
@@ -28,21 +28,21 @@
 }
 
 .markdown > p {
-  @apply mt-4 mb-6 text-lg text-gray-800;
+  @apply mt-4 mb-6 text-lg text-gray-800 font-light;
 }
 
-.markdown > strong {
-  @apply font-black;
+.markdown strong {
+  @apply font-black font-bold;
 }
 
-.markdown > blockquote {
-  @apply -ml-8 mb-8;
+.markdown blockquote {
+  @apply my-8 text-gray-900 py-3 border-yellow-600;
 }
 
 .markdown ul {
-  @apply list-disc mb-8 ml-4;
+  @apply list-disc mb-8 ml-4 font-light text-lg;
 }
 
 .markdown ol {
-  @apply list-decimal mb-8;
+  @apply list-decimal mb-8 ml-4 font-light text-lg;
 }
