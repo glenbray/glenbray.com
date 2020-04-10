@@ -12,7 +12,6 @@
 
 .markdown > h4 {
   @apply font-black mt-8 mb-4 normal-case tracking-wider;
-
 }
 
 .markdown > h5 {

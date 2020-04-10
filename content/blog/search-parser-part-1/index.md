@@ -4,7 +4,7 @@ date: "2020-03-17T08:29:00"
 description: ""
 ---
 
-Out of the box, Elasticsearch provides its own [query parser](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html). But what if you wanted something similar to [googles search functionality](https://ahrefs.com/blog/google-advanced-search-operators/). In our case, we don't need all the features that come with Elasticsearch and we'd prefer to restrict functionality. So our plan is to build our own gem that can take a search expression then transform that and return an Elasticsearch query. 
+Out of the box, Elasticsearch provides its own [query parser](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html). But what if you wanted something similar to [googles search functionality](https://ahrefs.com/blog/google-advanced-search-operators/). In our case, we don't need all the features that come with Elasticsearch and we'd prefer to restrict functionality. So our plan is to build our own gem that can take a search expression then transform that and return an Elasticsearch query.
 
 The code for this article can be found [here](https://github.com/glenbray/elastic_parser).
 
@@ -71,7 +71,7 @@ RSpec.describe ElasticParser do
 end
 ```
 
-For this spec, we'll pass in a simple term that is `word` and we're expecting the result to be an Elasticsearch query. I'll be performing a multi-match query in Elasticsearch against each multiple fields in a doc. That is more specific for my use case. 
+For this spec, we'll pass in a simple term that is `word` and we're expecting the result to be an Elasticsearch query. I'll be performing a multi-match query in Elasticsearch against each multiple fields in a doc. That is more specific for my use case.
 
 
 Let's go ahead and create a spec for our Parser class
@@ -226,7 +226,7 @@ Let's add our next integration spec
 RSpec.describe ElasticParser do
   describe ".parse" do
     #...
-    
+
     describe "phrase search" do
       let(:query) { '"this is a phrase"' }
 
@@ -254,7 +254,7 @@ We'll also update the parser spec.
 ```ruby
 RSpec.describe ElasticParser::Parser do
   #...
-  
+
   describe "#space" do
     it "parses space" do
       expect(subject.space).to parse(" ")
@@ -276,7 +276,7 @@ RSpec.describe ElasticParser::Parser do
       expect(subject.quote).to parse('"')
     end
   end
-  
+
   describe '#phrase' do
     it 'parses words wrapped in quotes' do
       expect(subject.phrase).to parse('"a b c"')
@@ -286,10 +286,9 @@ RSpec.describe ElasticParser::Parser do
 ```
 
 
-
 Now with these specs in place some changes need to be made to the parser to support phrases and get our tests working. The changes I've made to the parser code are listed below.
 
-- Updated the `term` rule to support checking for spaces using regex. 
+- Updated the `term` rule to support checking for spaces using regex.
 
 - Added a `quote` rule to check for quotation marks `"`.
 
@@ -297,9 +296,8 @@ Now with these specs in place some changes need to be made to the parser to supp
 
 - Updated the query rule to return term or phrase.
 
-- Added a value rule which will return a term or phrase. The phrase rule uses the term rule so we've moved `.as(:term)` from the term rule to the value rule. 
+- Added a value rule which will return a term or phrase. The phrase rule uses the term rule so we've moved `.as(:term)` from the term rule to the value rule.
 
-  
 
 ```ruby
 module ElasticParser
@@ -308,14 +306,14 @@ module ElasticParser
     rule(:space?) { space.maybe }
     rule(:term) { match('[^\s"]').repeat(1) }
     rule(:quote) { str('"') }
-    
+
     rule(:phrase) do
       (quote >> (term >> space?).repeat.as(:phrase) >> quote) >> space?
     end
 
     rule(:value) { (term.as(:term) | phrase) }
     rule(:query) { value.as(:query) }
-    
+
     root(:query)
   end
 end
@@ -377,7 +375,7 @@ We'll add the phrase rule to the transformer class that will transform the phras
 module ElasticParser
   class Transformer < Parslet::Transform
     #...
-    
+
     rule(phrase: simple(:phrase)) do
       Nodes::LeafNode.new(phrase: phrase.to_s.downcase)
     end
@@ -407,7 +405,7 @@ Let's start working on this feature. As we've done before we'll start with an in
 RSpec.describe ElasticParser do
   describe ".parse" do
     #...
-    
+
     describe "AND query" do
       let(:search_terms) { ['supplier', 'dog'] }
 
@@ -460,7 +458,7 @@ We'll add a few more parser specs as well.
 RSpec.describe ElasticParser::Parser do
   subject { ElasticParser::Parser.new }
   #...
-  
+
   describe '#and_op' do
     it 'parses AND' do
       expect(subject.and_op).to parse(' AND ')
@@ -483,21 +481,21 @@ RSpec.describe ElasticParser::Parser do
 end
 ```
 
-Let's update the parser and add a couple of rules to handle the `AND` operator and generating a rule to parse `AND` conditions. It gets slightly more complicated as we've also introduced recursion. I'll explain how this works. 
+Let's update the parser and add a couple of rules to handle the `AND` operator and generating a rule to parse `AND` conditions. It gets slightly more complicated as we've also introduced recursion. I'll explain how this works.
 
 1. Check for a value (term or phrase)
 2. Check for an `AND` operator
-3. Now we'll recursively  recheck 
+3. Now we'll recursively  recheck
 
-If we look at the `and_condition` rule you can see that we first check for value (term or phrase). Then a check for an `AND` operation (spaces that are not apart of phrases are also considered as an `AND` operator). 
+If we look at the `and_condition` rule you can see that we first check for value (term or phrase). Then a check for an `AND` operation (spaces that are not apart of phrases are also considered as an `AND` operator).
 
-````ruby
+```ruby
 require "parslet"
 
 module ElasticParser
   class Parser < Parslet::Parser
     #...
-    
+
     rule(:and_op)   { ((space >> str('AND') >> space) | space?) }
 
     rule(:and_condition) do
@@ -548,7 +546,7 @@ We'll create a new rule in our transformer that will create our `OperatorNode` w
 module ElasticParser
   class Transformer < Parslet::Transform
     #...
-    
+
     rule(and: { left: subtree(:left), right: subtree(:right) }) do
       node = Nodes::OperatorNode.new(:and, left, right)
       left.parent = node if left
@@ -575,3 +573,4 @@ We'll run our specs again and everything will pass.
 - https://github.com/kschiess/parslet
 - http://kschiess.github.io/parslet/documentation.html
 - http://recursion.org/query-parser
+
