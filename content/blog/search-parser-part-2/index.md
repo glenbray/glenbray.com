@@ -4,27 +4,27 @@ date: "2020-03-17T08:30:00"
 description: ""
 ---
 
+Continuing from [PART 1](/search-parser-part-1), we'll look to finish off the remaining features of our gem.
+
 The code for this article can be found [here](https://github.com/glenbray/elastic_parser).
 
+###[Part 1](/search-parser-part-1)
 
-Continuing on from [PART 1](https://dev.to/glenbray/search-parser-part-1-45m4) we'll look to finish off the remaining features of our gem.
+| Feature       | Example                    |
+|---------------|----------------------------|
+| Term Search   | `term`                     |
+| Phrase Search | `"this is a phrase"`       |
+| AND condition | `cat dog` or `cat AND dog` |
 
+###Part 2
 
-**[Part 1](https://dev.to/glenbray/search-parser-part-1-45m4)** 
+| Feature        | Example                         |
+|----------------|---------------------------------|
+| OR Condition   | `cat OR dog`                    |
+| Not Filter     | `-term`                         |
+| Grouped search | `(cat dog) OR (crocodile fish)` |
 
-- Term search - `term`
-- Phrase search `"this is a phrase"`
-- AND condition `cat dog` or `cat AND dog`
-
-**Part 2**
-
-- OR Condition `cat OR dog`
-- Not filter `-term`
-- Grouped search `(cat dog) OR (crocodile fish)`
-
-
----
-
+<br />
 
 # OR condition
 
@@ -38,7 +38,7 @@ As we did in part 1 we'll get started with an integration test.
 RSpec.describe ElasticParser do
   describe ".parse" do
     #...
-    
+
     describe "OR query" do
       let(:search_terms) { ['supplier', 'dog'] }
 
@@ -84,7 +84,7 @@ The parser spec can be updated to handle the `OR` operator.
 ```ruby
 RSpec.describe ElasticParser::Parser do
   #...
-  
+
   describe '#or_op' do
     it 'parses OR' do
       expect(subject.or_op).to parse(' OR ')
@@ -104,19 +104,19 @@ To get our parser spec working we'll make some changes to the parser class:
 
 - Update `term` rule to ignore the `OR` operator.
 - Create a rule to handle the `OR` operator.
-- Create a rule to match an `OR` condition. 
+- Create a rule to match an `OR` condition.
 - Update query rule to call `or_condition`
 
-  
+
 ```ruby
 module ElasticParser
   class Parser < Parslet::Parser
     #...
-    
+
     rule(:term) do
       str("OR").absent? >> match('[^\s"]').repeat(1)
     end
-    
+
     rule(:or_op)   { (space >> str("OR") >> space) }
 
     rule(:or_condition) do
@@ -130,11 +130,11 @@ module ElasticParser
 end
 ```
 
-This may be a bit confusing if you've not done much recursion in a while (or at all). 
+This may be a bit confusing if you've not done much recursion in a while (or at all).
 
 When the or_condition is evaluated it will attempt to build a left subtree. It will first attempt to match an `AND` operator before attempting to match the `OR` operator. If it's unable to match the `OR` or `AND` operators, then it will fall back and match the `value` rule (`term` or `phrase`).
 
-In the middle of the `or_condition` rule, it will then attempt to match an `OR` operator. Then for the right subtree, it will call itself and do what we did to the left subtree. 
+In the middle of the `or_condition` rule, it will then attempt to match an `OR` operator. Then for the right subtree, it will call itself and do what we did to the left subtree.
 
 Let's make another update the transformer class to handle the `OR` operator.
 
@@ -166,7 +166,7 @@ module ElasticParser::Nodes
         raise "Unknown operator: #{operator}"
       end
     end
-    
+
     #...
   end
 end
@@ -233,7 +233,7 @@ We'll also update to the parser specs for the not operator.
 ```ruby
 RSpec.describe ElasticParser::Parser do
   #...
-  
+
   describe '#not_op' do
     it 'parses -' do
       expect(subject.not_op).to parse('-')
@@ -257,7 +257,7 @@ require "parslet"
 module ElasticParser
   class Parser < Parslet::Parser
     #...
-    
+
     rule(:not_op)   { str('-') }
 
     rule(:not_condition) do
@@ -319,7 +319,7 @@ Let's implement our final integration test.
 RSpec.describe ElasticParser do
   describe ".parse" do
     #...
-    
+
     describe "Grouped query" do
       let(:query) { "(a b) OR (c (d e))" }
 
@@ -438,7 +438,7 @@ require "parslet"
 module ElasticParser
   class Parser < Parslet::Parser
     #...
-    
+
     rule(:lparen)   { str('(') }
     rule(:rparen)   { str(')') }
 
@@ -468,9 +468,9 @@ All specs are passing and we've implemented all the features that we want.
 
 # How does the Elasticsearch query actually get generated?
 
-Up until now, I have not gone into the details how we actually generate the Elasticsearch query from the tree that we generate with our node classes. This works by applying left to right recursion. Each node implements a `to_query` method. 
+Up until now, I have not gone into the details how we actually generate the Elasticsearch query from the tree that we generate with our node classes. This works by applying left to right recursion. Each node implements a `to_query` method.
 
-We store the root node as a variable within the `ElasticTree` class which also implements a method `to_query`. If a node within the tree is an `OperatorNode` the queries that it generates will call the `left` and `right` attributes respectively. We evaluate the left branch first, then it will recursively go through each node until it gets to a leaf node. 
+We store the root node as a variable within the `ElasticTree` class which also implements a method `to_query`. If a node within the tree is an `OperatorNode` the queries that it generates will call the `left` and `right` attributes respectively. We evaluate the left branch first, then it will recursively go through each node until it gets to a leaf node.
 
 The leaf node is the end of a branch within the tree that will return a `term` or `phrase`. As it traverses through each node it will build a hash the same shape as the tree and this hash that is returned is our Elasticsearch query that a library such as `Searchkick` will accept. If you're using Searchkick you'll need to use the [advanced search](https://github.com/ankane/searchkick#advanced-search) feature.
 

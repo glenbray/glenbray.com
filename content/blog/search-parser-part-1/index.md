@@ -10,16 +10,23 @@ The code for this article can be found [here](https://github.com/glenbray/elasti
 
 I've split building this gem into two articles. The features we will work on are listed in part one below.
 
-**Part 1**
-- Term search - `term`
-- Phrase search `"this is a phrase"`
-- AND condition `cat dog` or `cat AND dog`
+###Part 1
 
-**[Part 2](https://dev.to/glenbray/search-parser-part-2-683)**
-- OR Condition `cat OR dog`
-- Not filter `-term`
-- Grouped search `(cat dog) OR (crocodile fish)`
+| Feature       | Example                    |
+|---------------|----------------------------|
+| Term Search   | `term`                     |
+| Phrase Search | `"this is a phrase"`       |
+| AND condition | `cat dog` or `cat AND dog` |
 
+###[Part 2](/search-parser-part-2)
+
+| Feature        | Example                         |
+|----------------|---------------------------------|
+| OR Condition   | `cat OR dog`                    |
+| Not Filter     | `-term`                         |
+| Grouped search | `(cat dog) OR (crocodile fish)` |
+
+<br />
 
 Before we start writing any code for a feature, we will start with tests. So we'll build this test first. Let's get started by creating the gem.
 
@@ -489,6 +496,7 @@ Let's update the parser and add a couple of rules to handle the `AND` operator a
 
 If we look at the `and_condition` rule you can see that we first check for value (term or phrase). Then a check for an `AND` operation (spaces that are not apart of phrases are also considered as an `AND` operator).
 
+
 ```ruby
 require "parslet"
 
@@ -509,12 +517,10 @@ module ElasticParser
 end
 ```
 
-
 To handle operators, we'll create a new node for our tree called `OperatorNode`. Its responsibility will handle generating the correct Elasticsearch query for each operator type. For now, we'll have it generate an Elasticsearch `must` query.
 
 
 ```ruby
-
 module ElasticParser::Nodes
   class OperatorNode < ElasticNode
     def to_elastic_op(data)
@@ -535,7 +541,6 @@ module ElasticParser::Nodes
     end
   end
 end
-
 ```
 
 
@@ -564,7 +569,7 @@ We'll run our specs again and everything will pass.
 
 &ensp;
 
-[CONTINUE TO PART 2](https://dev.to/glenbray/search-parser-part-2-683)
+[CONTINUE TO PART 2](/search-parser-part-2)
 
 &ensp;
 
