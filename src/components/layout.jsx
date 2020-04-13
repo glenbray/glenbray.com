@@ -1,8 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import Logo from "./logo";
-import { rhythm, scale } from "../utils/typography"
+import Logo from "./logo"
 
 class Layout extends React.Component {
   render() {
@@ -31,12 +30,10 @@ class Layout extends React.Component {
     }
 
     return (
-      <div className="max-w-4xl mx-auto px-2 py-10">
+      <div className="max-w-3xl mx-auto px-2 py-10">
         <header>{header}</header>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()} glenbray.com
-        </footer>
+        <footer>© {new Date().getFullYear()} glenbray.com</footer>
       </div>
     )
   }

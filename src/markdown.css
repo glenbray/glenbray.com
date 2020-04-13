@@ -1,21 +1,21 @@
 .markdown > h1 {
-  @apply mt-10 mb-4 text-4xl font-medium text-gray-800;
+  @apply mb-10 mb-4 text-3xl font-medium text-gray-800;
 }
 
 .markdown > h2 {
-  @apply text-3xl font-black mt-12 mb-0;
+  @apply text-2xl font-black mt-12 mb-0;
 }
 
 .markdown > h3 {
-  @apply text-2xl font-black mt-12 mb-4;
+  @apply text-xl font-black mt-12 mb-4;
 }
 
 .markdown > h4 {
-  @apply font-black mt-8 mb-4 normal-case tracking-wider;
+  @apply text-lg font-black mt-8 mb-4 normal-case tracking-wider;
 }
 
 .markdown > h5 {
-  @apply text-sm font-black mt-12 mb-0;
+  @apply text-base font-black mt-12 mb-0;
 }
 
 .markdown > h6 {
@@ -39,9 +39,21 @@
 }
 
 .markdown ul {
-  @apply list-disc mb-8 ml-4 font-light text-lg;
+  @apply list-disc mb-8 ml-4 font-light text-base;
+}
+
+.markdown ul > li {
+  @apply mb-1;
 }
 
 .markdown ol {
-  @apply list-decimal mb-8 ml-4 font-light text-lg;
+  @apply list-decimal mb-8 ml-4 font-light text-base;
+}
+
+.markdown > .gatsby-highlight > pre > code {
+  @apply text-sm;
+}
+
+.markdown hr {
+  @apply h-px my-10 bg-gray-300;
 }
