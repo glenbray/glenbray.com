@@ -3,23 +3,23 @@
 }
 
 .markdown > h2 {
-  @apply text-2xl font-black mt-12 mb-0;
+  @apply text-2xl font-black mb-0;
 }
 
 .markdown > h3 {
-  @apply text-xl font-black mt-12 mb-4;
+  @apply text-xl font-black mb-4;
 }
 
 .markdown > h4 {
-  @apply text-lg font-black mt-8 mb-4 normal-case tracking-wider;
+  @apply text-lg font-black mb-4 normal-case tracking-wider;
 }
 
 .markdown > h5 {
-  @apply text-base font-black mt-12 mb-0;
+  @apply text-base font-black mb-0;
 }
 
 .markdown > h6 {
-  @apply text-xs font-black mt-12 mb-0;
+  @apply text-xs font-black mb-0;
 }
 
 .markdown a {
@@ -27,7 +27,7 @@
 }
 
 .markdown > p {
-  @apply mb-6 text-gray-800 font-light text-lg;
+  @apply mb-6 text-gray-800 font-normal text-lg leading-relaxed;
 }
 
 .markdown strong {
@@ -39,7 +39,7 @@
 }
 
 .markdown ul {
-  @apply list-disc mb-6 ml-4 text-gray-800;
+  @apply list-disc mb-6 ml-4 text-gray-800 text-base font-light;
 }
 
 .markdown ul > li {
@@ -47,15 +47,19 @@
 }
 
 .markdown ol {
-  @apply list-decimal mb-8 ml-4 font-light text-base;
+  @apply list-decimal mb-6 ml-4 text-gray-800 text-base font-light;
+}
+
+.markdown ol > li {
+  @apply mb-1;
 }
 
 .markdown > .gatsby-highlight {
-  @apply mb-6 -mx-12;
+  @apply mb-6 -mx-4;
 }
 
 .markdown > .gatsby-highlight > pre {
-  @apply px-12;
+  @apply px-4;
 }
 
 .markdown > .gatsby-highlight > pre > code {
@@ -65,3 +69,14 @@
 .markdown hr {
   @apply h-px my-10 bg-gray-300;
 }
+
+@screen md {
+  .markdown > .gatsby-highlight {
+    @apply -mx-12;
+  }
+
+  .markdown > .gatsby-highlight > pre {
+    @apply px-12;
+  }
+}
+

@@ -129,7 +129,7 @@ end
 
 This may be a bit confusing if you've not done much recursion in a while (or at all).
 
-When the or_condition is evaluated it will attempt to build a left subtree. It will first attempt to match an `AND` operator before attempting to match the `OR` operator. If it's unable to match the `OR` or `AND` operators, then it will fall back and match the `value` rule (`term` or `phrase`).
+When the `or_condition` is evaluated it will attempt to build a left subtree. It will first attempt to match an `AND` operator before attempting to match the `OR` operator. If it's unable to match the `OR` or `AND` operators, then it will fall back and match the `value` rule (`term` or `phrase`).
 
 In the middle of the `or_condition` rule, it will then attempt to match an `OR` operator. Then for the right subtree, it will call itself and do what we did to the left subtree.
 
@@ -427,7 +427,7 @@ The remaining changes we need to make to the parser are:
 - Create rules for parenthesis
 - Update the term rule to ignore the parenthesis
 - Create a group rule that will match a group within an expression, otherwise match on `value` rule
-- Update the `not_condition` rule to fall back to the `group` rule if no match made
+- Update the `not_condition` rule to fall back to the `group` rule if no match has been made
 
 ```ruby
 require "parslet"
@@ -471,9 +471,13 @@ We store the root node as a variable within the `ElasticTree` class which also i
 
 The leaf node is the end of a branch within the tree that will return a `term` or `phrase`. As it traverses through each node it will build a hash the same shape as the tree and this hash that is returned is our Elasticsearch query that a library such as `Searchkick` will accept. If you're using Searchkick you'll need to use the [advanced search](https://github.com/ankane/searchkick#advanced-search) feature.
 
+---
 
 #### References
 
 - https://github.com/kschiess/parslet
 - http://kschiess.github.io/parslet/documentation.html
 - http://recursion.org/query-parser
+
+<br />
+
