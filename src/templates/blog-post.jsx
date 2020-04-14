@@ -19,7 +19,7 @@ class BlogPostTemplate extends React.Component {
           description={post.frontmatter.description || post.excerpt}
         />
         <Bio />
-        <article className="bg-white px-6 py-4 rounded shadow mb-8">
+        <article className="bg-white px-12 py-4 rounded shadow mb-8">
           <header>
             <h1 className="text-4xl font-black mt-8 mb-0">
               {post.frontmatter.title}

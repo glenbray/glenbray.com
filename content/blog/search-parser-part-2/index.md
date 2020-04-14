@@ -76,9 +76,6 @@ RSpec.describe ElasticParser do
 end
 
 ```
-
-
-
 The parser spec can be updated to handle the `OR` operator.
 
 ```ruby
@@ -150,8 +147,8 @@ module ElasticParser
 end
 ```
 
-
-Finally we'll update the `OperatorNode` class to return the correct Elasticsearch operator for the `OR` operator.
+Finally we'll update the `OperatorNode` class to return the correct Elasticsearch operator
+for the `OR` operator.
 
 ```ruby
 module ElasticParser::Nodes

@@ -1,5 +1,5 @@
 .markdown > h1 {
-  @apply mb-10 mb-4 text-3xl font-medium text-gray-800;
+  @apply mb-8 text-4xl font-bold text-gray-900;
 }
 
 .markdown > h2 {
@@ -27,7 +27,7 @@
 }
 
 .markdown > p {
-  @apply mt-4 mb-6 text-lg text-gray-800 font-light;
+  @apply mb-6 text-gray-800 font-light text-lg;
 }
 
 .markdown strong {
@@ -39,7 +39,7 @@
 }
 
 .markdown ul {
-  @apply list-disc mb-8 ml-4 font-light text-base;
+  @apply list-disc mb-6 ml-4 text-gray-800;
 }
 
 .markdown ul > li {
@@ -48,6 +48,14 @@
 
 .markdown ol {
   @apply list-decimal mb-8 ml-4 font-light text-base;
+}
+
+.markdown > .gatsby-highlight {
+  @apply mb-6 -mx-12;
+}
+
+.markdown > .gatsby-highlight > pre {
+  @apply px-12;
 }
 
 .markdown > .gatsby-highlight > pre > code {
