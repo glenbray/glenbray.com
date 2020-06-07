@@ -1,7 +1,7 @@
 ---
-title: Australian Address API
+title: Build your own Australian Address Search API
 date: "2020-06-07"
-description: "Build your own Australian address search API"
+description: "We'll explore creating an address search API using the GNAF dataset and elasticsearch"
 ---
 
 [Code can be found here](https://github.com/glenbray/australian_address_api)
@@ -11,6 +11,9 @@ that also have generous free daily limits. But, there may be times when those
 limits aren't enough and the costs of using the service may not be viable. An example
 of a time when this was useful for me can
 [viewed here](https://glenbray.com/extracting-addresses-from-millions-of-pages-with-automl-and-ruby/).
+
+Lets look at whats involved in creating our own Australian address search API using the
+[GNAF dataset](https://psma.com.au/product/gnaf).
 
 We'll be doing the following:
 
