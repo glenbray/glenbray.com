@@ -9,7 +9,7 @@ description: "We'll explore creating an address search API using the GNAF datase
 There are multiple services available that offer API's for address autocomplete
 that also have generous free daily limits. But, there may be times when those
 limits aren't enough and the costs of using the service may not be viable. An example
-of a time when this was useful for me can
+of a time when this was useful for me can be
 [viewed here](https://glenbray.com/extracting-addresses-from-millions-of-pages-with-automl-and-ruby/).
 
 Lets look at whats involved in creating our own Australian address search API using the

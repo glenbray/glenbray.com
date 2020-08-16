@@ -11,7 +11,7 @@
 }
 
 .markdown > h4 {
-  @apply mb-4 text-lg font-black tracking-wider normal-case;
+  @apply mb-4 font-black tracking-wider normal-case;
 }
 
 .markdown > h5 {
@@ -19,7 +19,7 @@
 }
 
 .markdown > h6 {
-  @apply mb-0 text-xs font-black;
+  @apply mb-0 text-lg font-black;
 }
 
 .markdown a {
@@ -27,7 +27,7 @@
 }
 
 .markdown > p {
-  @apply mb-6 text-lg font-normal leading-relaxed text-gray-800;
+  @apply mb-6 font-normal leading-relaxed text-gray-800;
 }
 
 .markdown strong {
@@ -39,7 +39,7 @@
 }
 
 .markdown ul {
-  @apply mb-6 ml-4 text-base text-gray-800 list-disc;
+  @apply mb-6 ml-4 text-gray-800 list-disc;
 }
 
 .markdown ul > li {
@@ -47,7 +47,7 @@
 }
 
 .markdown ol {
-  @apply mb-6 ml-4 text-base text-gray-800 list-decimal;
+  @apply mb-6 ml-4 text-gray-800 list-decimal;
 }
 
 .markdown ol > li {

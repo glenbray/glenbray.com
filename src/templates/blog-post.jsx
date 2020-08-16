@@ -19,12 +19,12 @@ class BlogPostTemplate extends React.Component {
           description={post.frontmatter.description || post.excerpt}
         />
         <Bio />
-        <article className="bg-white px-4 md:px-12 py-1 md:py-4 rounded shadow mb-8">
+        <article className="px-4 py-1 mb-8 bg-white rounded shadow md:px-12 md:py-4">
           <header>
-            <h1 className="text-4xl font-black mt-8 mb-0">
+            <h1 className="mt-8 mb-0 text-4xl font-black">
               {post.frontmatter.title}
             </h1>
-            <p className="text-lg leading-loose mb-8 text-gray-600">
+            <p className="mb-8 text-lg leading-loose text-gray-600">
               {post.frontmatter.date}
             </p>
           </header>
@@ -39,11 +39,7 @@ class BlogPostTemplate extends React.Component {
         </article>
 
         <nav className="mb-8">
-          <Link
-            className="text-2xl text-blue-600"
-            to="/"
-            rel="back"
-          >
+          <Link className="text-lg text-blue-600" to="/" rel="back">
             ← Back
           </Link>
         </nav>
