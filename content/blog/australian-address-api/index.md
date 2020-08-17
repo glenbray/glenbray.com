@@ -270,7 +270,7 @@ longitude and latitude.
 Let's update the address model to support reverse geocode searches.
 
 ```ruby
-Address
+class Address
   # ...
 
   def self.reverse_geocode(longitude, latitude, within)
@@ -291,7 +291,7 @@ Address
 end
 ```
 
- Finally, to finish this off - the route, controller and view.
+Finally, to finish this off let's implement the route, controller and view.
 
 
 ```ruby
